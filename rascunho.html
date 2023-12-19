@@ -1,0 +1,164 @@
+<!-- logica de alert -->
+
+?>
+				<div class="content float-letf">
+					<div class="row">
+						<div class="col-md-3 ml-auto" >
+							<div class="alert alert-danger" role="alert">
+  								<h5 class="alert-heading">Erro!</h5>
+  								<p>Verifique sua senha</p>
+  								<hr>
+							</div>
+						</div>
+					</div>
+				</div>
+			 	<?php
+               //<h5 class="mensagem"> <?php echo "Email ou Senha incorreto"; </h5>
+          	}
+
+   <!-- logica fechar alert -->
+
+
+
+   <script type="text/javascript">
+    $(function () {
+
+ setTimeout(function () {
+            if ($(".alert").is(":visible")){
+                 //you may add animate.css class for fancy fadeout
+                $(".alert").fadeOut("show");
+            }
+        }, 3000)
+
+});
+
+</script>
+
+
+
+
+
+<!--logica criar um select com dados dos bancos-->
+
+  <?php
+                                        
+                  mysqli_set_charset($conn,'utf8') or die (mysqli_error($coon));
+                  $sql= mysqli_query($conn,"select nomeProcesso,id_processo from processos where id_usuario ='$idUsuario'");
+                  while($row =mysqli_fetch_assoc($sql)){
+
+                      echo "<option selected value=".$row['id_processo'].">".$row['nomeProcesso']."</option>";
+                  }    
+                ?>
+              </option>
+
+
+
+
+
+
+
+
+
+
+
+  let $nomeProcessoA =document.querySelector('#nomeProcessoA')
+  let $nomeEtapaA =document.querySelector('#nomeEtapaA')
+
+   function carregarnomeProcessoA(){
+     $.ajax({
+
+       method:"GET",
+       url:"selecionarprocessosetapas.php",
+       success:function (resposta){
+
+             const nomeProcessos1 =JSON.parse(resposta)
+             let select2=''
+            
+             nomeProcessos1.forEach(nomeProcessos1=>{
+
+                select2 +=`<option selected value="${nomeProcessos1.idprocesso}">${nomeProcessos1.nomeprocesso}</option>`
+             })
+
+             $nomeProcessoA.innerHTML = select2;
+          }
+       });
+     }
+
+     carregarnomeProcessoA()
+
+
+    function carregarnomeEtapa(sendDatos){
+          
+      $.ajax({
+          url:'selecionarprocessosetapas.php',
+          type:'POST',
+          data:sendDatos,
+          success:function (resposta){
+                
+              const nomeEtapas =JSON.parse(resposta)
+              let select3=''
+                if(nomeEtapas){
+                  console.log('sucesso')
+                }else if (!nomeEtapas){
+                  console.log('erro')
+                }        
+                nomeEtapas.forEach(nomeEtapas=>{
+
+                   select3 +=`<option selected value="${nomeEtapas.idetapa}">${nomeEtapas.nomeetapa}</option>`
+                   console.log(nomeEtapas)
+                })
+
+                $nomeEtapaA.innerHTML = select3;
+
+              
+              
+           },
+           error:function(resposta){
+              console.log('deu bigode');
+            let select3=''
+            select3+= "<option disabled> ta foda </option>"
+             $nomeEtapaA.innerHTML = select3;
+           }
+
+      })
+
+    }
+
+  
+
+  
+
+$nomeProcessoA.addEventListener('change',function(){
+    
+     const codProcesso =$nomeProcessoA.value
+        
+         
+      const sendDatos ={
+        'idprocesso': codProcesso
+      }
+       
+      carregarnomeEtapa(sendDatos)      
+   })
+
+
+
+
+
+
+       // document.getElementById('conteudo').appendChild()
+        let ajaxx = new XMLHttpRequest();
+
+      
+        ajaxx.open('GET',url)
+
+         ajaxx.onreadystatechange =() =>{
+          if (ajaxx.readyState == 4 && ajaxx.status == 200){
+             
+            document.getElementById('conteudo').innerHTML=ajaxx.responseText
+           }
+         
+         }
+        ajaxx.send()
+
+href=deletaratividade.php?id=".$teste."
+        

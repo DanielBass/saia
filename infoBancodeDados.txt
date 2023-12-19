@@ -1,0 +1,8 @@
+senha: Daniel!12345
+
+nome: id17732212_basededados
+
+usuario: id17732212_daniel
+
+locallhost: locallhost
+
